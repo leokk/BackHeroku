@@ -85,7 +85,6 @@ public class FieldService {
     }
 
     public String createJson(Long id) throws JSONException {
-        String str = "";
         List<Question> questions = questionRepository.findAllByUser(userRepository.findById(id));
         JSONArray arr = new JSONArray();
         HashMap<String, JSONObject> map = new HashMap<>();
