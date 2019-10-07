@@ -39,17 +39,22 @@ public class FieldControllerTests {
     public void getResponseTest() {
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange("http://localhost:8080/account/response/1000", HttpMethod.GET, entity, String.class);
-        String json = "[{\"What is your name\":\"secret\"}]";
+//		String json = "[{\"What is your name\":\"secret\"}]";
+        String json ="[{\"What is your favourite language?\":\"java\",\"What is your choice?\":\"Два\"}," +
+                "{\"What is your favourite language?\":\"С#\",\"What is your choice?\":\"Три\"}]";
+
         assertEquals(json, response.getBody());
     }
 
     @Test
     public void DeleteQuestionByUserIdTest() {
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
-
+        int expected;
+        if((expected=fieldService.getQuestionByUserId((long) 1000).size()-1)<0)
+            expected=0;
         ResponseEntity<String> response = restTemplate.exchange("http://localhost:8080/account/field/100", HttpMethod.DELETE, entity, String.class);
         List<Question> actual = fieldService.getQuestionByUserId((long) 1000);
-        assertEquals(0, actual.size());
+        assertEquals(expected, actual.size());
     }
 
 //    @Test

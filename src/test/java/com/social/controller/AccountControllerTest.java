@@ -42,17 +42,10 @@ public class AccountControllerTest {
 	String exmapleUser = "{\"userName\":\"user\",\"password\":\"my pass\",\"fullName\":\"my fullName\"}";
 	TestRestTemplate restTemplate = new TestRestTemplate();
 	HttpHeaders headers = new HttpHeaders();
-	@Test
-	public void getResponseTest() {
-		HttpEntity<String> entity = new HttpEntity<>(null, headers);
-		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8080/account/response/1000", HttpMethod.GET, entity, String.class);
-		String json = "[{\"What is your name\":\"secret\"}]";
-		assertEquals(json, response.getBody());
-	}
+
 	@Test
 	public void registerTest() throws Exception {
-		User mockUser = new User(12,"1@1","1234567QWe","Fname","Lname","+380687838139");
-		
+		User mockUser = new User(12,"1@1.com","1234567QWe","Fname","Lname","+380687838139");
 
 		// userService.save to respond back with mockUser
 		Mockito.when(userService.save(Mockito.any(User.class))).thenReturn(mockUser);
